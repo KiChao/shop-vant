@@ -7,7 +7,7 @@
             <span style="font-size: 30px">支付成功</span>
         </div>
         <div>
-            <span class="font-gary">该笔订单已支付成功</span>
+            <span class="font-gary">该笔订单支付成功</span>
         </div>
         <div style="padding: 50px 30px">
             <van-button @click="go()" type="danger" size="large">确定</van-button>

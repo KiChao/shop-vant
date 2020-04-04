@@ -3,6 +3,8 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "Author",
         created() {
@@ -48,7 +50,37 @@
                         sn: this.$toolBox.getCookie('sn'),
                     };
                     console.log('有token1');
-                    this.$api('UserCenter/index', params).then(data => {
+                    axios({
+                        url: `http://xkq.vxyz.cn/api/UserCenter/index`,
+                        method: 'post',
+                        data: params,
+                        headers: {
+                            // 'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(res => {
+                        if (res.data.status == 1) {
+                            let data = res.data.data;
+                            this.$store.state.sn = data.sn;
+                            this.$store.state.subscribe = data.subscribe;
+                            this.$store.state.isLoginLing = true;
+                            let toUrl = this.$toolBox.getCookie('beforeLoginUrl');
+                            this.$toast.clear();
+                            this.$router.push({path: toUrl});
+                        } else {
+                            let ua = window.navigator.userAgent.toLowerCase();
+                            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                                console.log('浏览器验证成功');
+                                // 跳转到微信授权页面
+                                let url = 'http://m.xkq.vxyz.cn/#/Author';
+                                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfac95bd0c7bfa56f&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+                                // window.open('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2368efa263120b88&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+
+                            }
+                        }
+                    }).catch(fail => {
+                        alert(fail);
+                    });
+                    /*this.$api('UserCenter/index', params).then(data => {
                         console.log(data);
                         this.$store.state.sn = data.sn;
                         this.$store.state.subscribe = data.subscribe;
@@ -56,7 +88,7 @@
                         let toUrl = this.$toolBox.getCookie('beforeLoginUrl');
                         this.$toast.clear();
                         this.$router.push({path: toUrl});
-                    });
+                    });*/
 
                 }
             } else {

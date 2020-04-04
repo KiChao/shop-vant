@@ -20,7 +20,7 @@
                         shape="round"
                         placeholder="搜索"
                     />-->
-                </div>
+                </div> 
                 <div class="table-cell" style="width: 35px;padding-left: 10px;text-align: right">
                     <van-icon @click="openPage('SystemMessage')" :info="unread==0?'':unread" style="display: inherit" size="25"
                               name="envelop-o"/>

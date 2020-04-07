@@ -114,6 +114,7 @@
                     this.unread = data.unread_num;
                 });
             },
+            
             //加载首页数据
             loadIndex() {
                 this.$api('Index/index').then(data => {

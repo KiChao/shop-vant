@@ -17,7 +17,7 @@
         box-sizing: border-box;
         word-break: break-all;
         line-height: 1.5;
-        font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu
+        font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
     }
 
     .white-bg {
@@ -61,6 +61,7 @@
     .font-red {
         color: #ee0a24;
     }
+
     .van-dialog__confirm, .van-dialog__confirm:active {
         color: #ee0a24 !important;
     }
@@ -72,7 +73,8 @@
     .text-right {
         text-align: right;
     }
-    .text-center{
+
+    .text-center {
         text-align: center;
     }
 

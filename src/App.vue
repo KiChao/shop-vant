@@ -81,4 +81,12 @@
     .font-gary {
         color: #888888;
     }
+    .flex {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .place {
+        place-content: space-between;
+    }
 </style>

@@ -9,8 +9,6 @@
             <div class="table">
                 <div class="table-cell">
                     <span class="font-red">￥</span><span class="font-red" style="font-size: 25px">{{productInfo.discount_price}}</span>
-                    / <span style="text-decoration: line-through"
-                            class="font-gary">价格 ￥{{productInfo.original_price}}</span>
                 </div>
                 <div class="table-cell text-right">
                     <span class="font-gary font-13">{{freight}}</span>
@@ -21,13 +19,9 @@
                     <span class="product-name">{{productInfo.product_name}}</span>
 
                 </div>
-                <div><van-tag style="margin-right: 5px" type="danger">{{productInfo.product_type_text}}</van-tag><span class="font-gary font-13">{{productInfo.label_text}}</span></div>
+<!--                <div><van-tag style="margin-right: 5px" type="danger">{{productInfo.product_type_text}}</van-tag><span class="font-gary font-13">{{productInfo.label_text}}</span></div>-->
             </div>
         </div>
-        <div>
-            <img src="@/assets/temp/faith.jpg" class="image" alt="">
-        </div>
-
         <van-divider>商品详情</van-divider>
         <div>
             <div v-html="productInfo.description"></div>
@@ -141,6 +135,16 @@
             this.loadProductDetail();
         },
         methods: {
+            getWxConfig() {
+                let item = {
+                    //获取锚点之前的链接
+                    links: `http://m.xkq.vxyz.cn/?sn=${this.$store.state.sn}#/ProductDetail/${this.productInfo.product_id}`,
+                    title: this.productInfo.product_name,
+                    desc: '',
+                    imgUrl: this.productInfo.img_url,
+                };
+                this.$wxShare(item);
+            },
             //提交商品信息判断是否可购买
             goPush() {
                 if (!this.isChooseSku) {
@@ -198,6 +202,7 @@
                     if (this.skuArray == 0) {
                         this.isChooseSku = true;
                     }
+                    this.getWxConfig();
 
                 });
             },

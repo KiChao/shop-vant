@@ -28,10 +28,10 @@
             // 检测会员有没有登录
             if (code == '' || code == null || code == 'undefined') {
 
-                let sn = this.GetQueryString('sn');
+                /*let sn = this.GetQueryString('sn');
                 if (sn) {
                     this.$toolBox.setCookie('sn', sn, 8760);
-                }
+                }*/
                 if (!this.$toolBox.getCookie('token')) {
                     console.log('跳转微信授权');
                     let ua = window.navigator.userAgent.toLowerCase();
@@ -49,7 +49,6 @@
                         token: this.$toolBox.getCookie('token'),
                         sn: this.$toolBox.getCookie('sn'),
                     };
-                    console.log('有token1');
                     axios({
                         url: `http://xkq.vxyz.cn/api/UserCenter/index`,
                         method: 'post',
@@ -60,8 +59,9 @@
                     }).then(res => {
                         if (res.data.status == 1) {
                             let data = res.data.data;
-                            this.$store.state.sn = data.sn;
-                            this.$store.state.subscribe = data.subscribe;
+                            console.log(data);
+                            this.$store.state.sn = data.user_info.sn;
+                            // this.$store.state.subscribe = data.user_info.subscribe;
                             this.$store.state.isLoginLing = true;
                             let toUrl = this.$toolBox.getCookie('beforeLoginUrl');
                             this.$toast.clear();
@@ -80,15 +80,6 @@
                     }).catch(fail => {
                         alert(fail);
                     });
-                    /*this.$api('UserCenter/index', params).then(data => {
-                        console.log(data);
-                        this.$store.state.sn = data.sn;
-                        this.$store.state.subscribe = data.subscribe;
-                        this.$store.state.isLoginLing = true;
-                        let toUrl = this.$toolBox.getCookie('beforeLoginUrl');
-                        this.$toast.clear();
-                        this.$router.push({path: toUrl});
-                    });*/
 
                 }
             } else {

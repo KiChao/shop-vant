@@ -56,7 +56,7 @@ Vue.prototype.$api = api;
 axios.interceptors.request.use(
     config => {
         const token = toolBox.getCookie('token');
-        // config.headers.Token = '6b12a5ab402b2bf2d6e90256472f554c';
+        // config.headers.Token = '5113ac736346f048297cbc22355b0b2a';
         if (token) {
             config.headers.Token = token;
         }
@@ -74,6 +74,11 @@ router.beforeEach((to, from, next) => {
 
     if (!store.state.isLoginLing && to.name != 'Author') {
         // 第一次进入项目
+        let sn = toolBox.GetQueryString("sn");
+        if (sn) {
+            toolBox.setCookie("sn", sn, 1);
+        }
+
         toolBox.setCookie('beforeLoginUrl', to.path, 0.1); // 保存用户进入的url
         next('/Author');
         return false;
@@ -87,6 +92,61 @@ router.beforeEach((to, from, next) => {
     }*/
     next();
 });
+import wx from 'weixin-js-sdk'
+//配置微信分享
+const wxShare = (item) => {
+    let params = {
+        url: 'http://m.xkq.vxyz.cn/',
+    };
+    api('Base/get_jsjdk_config', params).then(data => {
+        wxInit(data.js_jdk_config, item);
+    })
+};
+Vue.prototype.$wxShare = wxShare;
+const wxInit = (res, item) => {
+
+
+
+    let links = item.links;//获取锚点之前的链接
+    let title = item.title;
+    let desc = item.desc;
+    let imgUrl = item.imgUrl;
+
+    wx.config({
+        debug: false,
+        appId: res.appId,
+        timestamp: res.timestamp,
+        nonceStr: res.nonceStr,
+        signature: res.signature,
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage',],
+    });
+    wx.ready(function () {
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: links, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                this.$toast.success('分享成功');
+            },
+            cancel: function () {
+                this.$toast.fail('分享失败');
+            }
+        });
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: links, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                this.$toast.success('分享成功');
+            },
+            cancel: function () {
+                this.$toast.fail('分享失败');
+            }
+        })
+    });
+};
 
 
 Vue.config.productionTip = false;

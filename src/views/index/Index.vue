@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="default-window" style="background-color: #333333;color: #ececec">
+        <div class="default-window" style="background-color: #e2595a;color: #ececec">
             <div class="table">
                 <div class="table-cell user-left">
                     <img :src="userInfo.headimgurl" style="width: 45px;height: 45px;border-radius: 100%" alt="">
@@ -20,9 +20,10 @@
                         shape="round"
                         placeholder="搜索"
                     />-->
-                </div> 
+                </div>
                 <div class="table-cell" style="width: 35px;padding-left: 10px;text-align: right">
-                    <van-icon @click="openPage('SystemMessage')" :info="unread==0?'':unread" style="display: inherit" size="25"
+                    <van-icon @click="openPage('SystemMessage')" :info="unread==0?'':unread" style="display: inherit"
+                              size="25"
                               name="envelop-o"/>
                 </div>
             </div>
@@ -56,12 +57,10 @@
             <van-card
                 v-for="(item,index) in productList"
                 :key="index"
-                :tag="item.product_type_text"
                 :price="item.discount_price"
                 :desc="item.label_text"
                 @click="openProduct(item.product_id)"
                 :thumb="item.thumb_img_url"
-                :origin-price="item.original_price"
             >
                 <div slot="title">
                     <span style="font-size: 14px;font-weight: 500">{{item.product_name}}</span>
@@ -101,8 +100,21 @@
         mounted() {
             this.loadIndex();
             this.loadUserInfo();
+            this.getWxConfig();
         },
         methods: {
+            getWxConfig() {
+
+                let sn = this.$store.state.sn;
+                let item = {
+                    //获取锚点之前的链接
+                    links: `http://m.xkq.vxyz.cn/?sn=${sn}`,
+                    title: '星卡其',
+                    desc: 'WELCOME TO TAKINKI!',
+                    imgUrl: 'http://xkq.vxyz.cn/Uploads/1/2020-03-26/1B0D20D4D6CF02C8C6F9B8ED87F0C723.jpg',
+                };
+                this.$wxShare(item);
+            },
             //跳转到商品详情
             openProduct(id) {
                 this.$router.push({name: 'ProductDetail', params: {loadId: id}});
@@ -114,7 +126,7 @@
                     this.unread = data.unread_num;
                 });
             },
-            
+
             //加载首页数据
             loadIndex() {
                 this.$api('Index/index').then(data => {
@@ -129,13 +141,13 @@
                 this.$router.push({name: urlName, params: urlParams});
             },
             modalJump(type, value) {
-                console.log(type);
+
                 switch (type) {
                     case 'product':
                         this.$router.push({name: 'ProductDetail', params: {loadId: value || 0}});
                         break;
                     case 'cate':
-                        this.$router.push({name: 'ProductList', params: {loadId: value || 0,type:1}});
+                        this.$router.push({name: 'ProductList', params: {loadId: value || 0, type: 1}});
                         break;
                     case 'video_area':
                         this.$router.push({name: 'Video'});
@@ -144,10 +156,19 @@
                         this.$router.push({name: 'VideoDetail', params: {loadId: value || 0}});
                         break;
                     case 'vip_area':
-                        this.$router.push({name: 'ProductList', params: {loadId:0,type:2}});
+                        this.$router.push({name: 'ProductList', params: {loadId: 0, type: 2}});
                         break;
                     case 'svip_area':
-                        this.$router.push({name: 'ProductList', params: {loadId:0,type:3}});
+                        this.$router.push({name: 'ProductList', params: {loadId: 0, type: 3}});
+                        break;
+                    case 'notice_area':
+                        this.$router.push({name: 'NoticeList'});
+                        break;
+                    case 'notice':
+                        this.$router.push({name: 'NoticeDetail', params: {loadId: value}});
+                        break;
+                    case 'recharge':
+                        this.$router.push({name: 'Recharge'});
                         break;
                 }
             },

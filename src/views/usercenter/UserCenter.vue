@@ -22,11 +22,17 @@
                     <span class="level">{{userData.level_text}}</span>
                 </div>
             </div>
-            <div class="default-window text-center">
+            <!--<div class="default-window text-center">
                 <van-row gutter="15">
-                    <van-col @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index" span="12">{{item.integral_type_name}}：<span
-                        style="color: goldenrod;text-shadow: 0px 0px 2px #8e1414;">{{item.num}}</span></van-col>
+                    <van-col @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index" span="12">：<span
+                        style=""></span></van-col>
                 </van-row>
+            </div>-->
+            <div class="flex place">
+                <div style="flex: 1" class="text-center" @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index">
+                    <div>{{item.integral_type_name}}</div>
+                    <div style="color: goldenrod;text-shadow: 0px 0px 2px #8e1414;">{{item.num}}</div>
+                </div>
             </div>
         </div>
 
@@ -64,6 +70,7 @@
                 <van-grid-item to="/UserData" icon="manager-o" text="个人资料"/>
                 <van-grid-item to="/Wallet" icon="paid" text="我的钱包"/>
                 <van-grid-item to="/MyTeam" icon="cluster-o" text="我的团队"/>
+                <van-grid-item to="/Recharge" icon="cash-on-deliver" text="充值"/>
             </van-grid>
         </div>
 

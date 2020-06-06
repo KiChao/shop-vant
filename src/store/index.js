@@ -23,7 +23,6 @@ export default new vuex.Store({
         recordingAddress: false,
         subscribe: 0,
 
-
         //分享数据sn
         sn: '',
 
@@ -52,5 +51,8 @@ export default new vuex.Store({
 
         //购物车资讯
         cartInfo:{},
+
+        //取货方式
+        pickType:'1'
     }
 })

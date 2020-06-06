@@ -77,7 +77,7 @@
             <van-cell-group>
                 <van-cell center title="商品总价" :value="`￥`+order.total_fee"/>
                 <van-cell center title="运费" :value="order.shipping_fee==0?`包邮`:order.shipping_fee+'元'"/>
-                <van-panel title="订单总价" :status="`￥`+order.total_fee">
+                <van-panel title="订单总价" :status="`￥${parseFloat(order.total_fee)+parseFloat(order.shipping_fee)}`">
                 </van-panel>
             </van-cell-group>
         </div>
@@ -90,7 +90,7 @@
             <div style="width: 100%;height: 50px"></div>
             <van-submit-bar
                 v-if="order.status==0"
-                :price="(order.total_fee+order.shipping_fee)*100"
+                :price="(parseFloat(order.total_fee)+parseFloat(order.shipping_fee))*100"
                 button-text="订单支付"
                 text-align="left"
                 button-type="danger"
@@ -130,6 +130,7 @@
                     let params = {
                         order_no: this.order.order_no
                     };
+
                     this.$api('Order/confirm',params).then(data=>{
                         this.$toast.success('操作成功');
                         this.loadOrderDetail();

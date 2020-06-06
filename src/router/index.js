@@ -42,6 +42,12 @@ import IntegralRecord from '@/views/usercenter/integralRecord/integralRecord'//�
 
 
 import Author from '@/views/public/Author'//微信登录授权页面
+import Recharge from '@/views/usercenter/recharge/Recharge'//积分充值
+import RechargeLog from '@/views/usercenter/recharge/RechargeLog'//积分充值记录
+
+
+import NoticeList from '@/views/Notice/List'//公告列表
+import NoticeDetail from '@/views/Notice/Detail'//公告详情
 
 Vue.use(Router);
 
@@ -175,9 +181,25 @@ export default new Router({
             name: 'MyTeam',
             component: MyTeam
         },{
-            path: '/IntegralRecord',
+            path: '/Recharge',
+            name: 'Recharge',
+            component: Recharge
+        },{
+            path: '/NoticeList',
+            name: 'NoticeList',
+            component: NoticeList
+        },{
+            path: '/NoticeDetail/:loadId',
+            name: 'NoticeDetail',
+            component: NoticeDetail
+        },{
+            path: '/IntegralRecord/:type',
             name: 'IntegralRecord',
             component: IntegralRecord
+        },{
+            path: '/RechargeLog',
+            name: 'RechargeLog',
+            component: RechargeLog
         },
     ]
 })

@@ -3,12 +3,23 @@
         <van-notice-bar wrapable :scrollable="false" left-icon="volume-o" mode="closeable">
             温馨提示：为了您的财产安全，不要向陌生人透露您的支付信息以及商品物流信息
         </van-notice-bar>
-
+        <div class=" white flex place">
+            <div class="default-window"><span>配送方式</span></div>
+            <van-radio-group v-model="pickType">
+                <div class="default-window">
+                    <van-radio name="1" checked-color="#07c160">邮寄</van-radio>
+                </div>
+                <div class="default-window">
+                    <van-radio name="2" checked-color="#07c160">自提</van-radio>
+                </div>
+            </van-radio-group>
+        </div>
+        <div class="blank"></div>
         <!--地址选择-->
-        <div @click="chooseAddress('choose')">
+        <div v-if="pickType=='1'" @click="chooseAddress('choose')">
             <div class="address-window default-window table">
-                <div class="table-cell" style="width: 35px">
-                    <van-icon size="25px" class="block" name="location-o"/>
+                <div class="table-cell" style="width: 30px">
+                    <van-icon size="20px" class="block" name="location-o"/>
                 </div>
                 <div v-if="addressInfo.isChoose==true" class="table-cell">
                     <div><span>{{addressInfo.name}} {{addressInfo.phone}}</span></div>
@@ -16,6 +27,22 @@
                 </div>
                 <div v-else>
                     <div><span>点击选择收货地址</span></div>
+                </div>
+                <div class="table-cell" style="width: 30px;text-align: right">
+                    <van-icon size="20px" color="#888888" class="block" name="arrow"/>
+                </div>
+            </div>
+            <img src="@/assets/temp/border.png" class="image" alt="">
+        </div>
+        <div v-if="pickType=='2'">
+            <div @click="showPicker=true" class="address-window default-window table">
+                <div class="table-cell" style="width: 30px">
+                    <van-icon size="20px" class="block" name="shop-o"/>
+                </div>
+                <div class="table-cell">
+                    <div><span>{{pickShop.shopName}}</span></div>
+                    <div><span>{{pickShop.address}}</span></div>
+
                 </div>
                 <div class="table-cell" style="width: 30px;text-align: right">
                     <van-icon size="20px" color="#888888" class="block" name="arrow"/>
@@ -49,25 +76,48 @@
             <van-cell title="邮费" :value="postage==0?'包邮':postage+'元'"/>
             <van-cell title="支付费用">
                 <span class="font-red">￥</span><span class="font-red"
-                                                     style="font-size: 20px">{{allPrice + postage}}</span>
+                                                     style="font-size: 20px">{{pickType=='1'?allPrice + postage:allPrice}}</span>
             </van-cell>
         </van-cell-group>
+        <div class=" white flex place">
+            <div class="default-window"><span>支付方式</span></div>
+            <van-radio-group v-model="payType">
+                <div class="default-window">
+                    <van-radio name="1" checked-color="#07c160">现金支付</van-radio>
+                </div>
+                <div class="default-window">
+                    <van-radio name="3" checked-color="#07c160">充值卡</van-radio>
+                </div>
+            </van-radio-group>
+        </div>
+        <div class="blank"></div>
 
         <div>
             <div style="width: 100%;height: 50px"></div>
             <van-submit-bar
-                :price="(allPrice + postage)*100"
+                :price="pickType=='1'?(allPrice + postage)*100:allPrice*100"
                 button-text="提交订单"
                 text-align="left"
                 :loading="buyButtonStatus"
                 @submit="pushOrder()"
             />
         </div>
+        <!--        门店选择-->
+        <van-popup v-model="showPicker" position="bottom">
+            <van-picker
+                title="选择门店"
+                show-toolbar
+                :columns="columns"
+                @cancel="showPicker = false"
+                @confirm="chooseShop"
+            />
+        </van-popup>
 
     </div>
 </template>
 
 <script>
+    import axios from "axios";
     export default {
         name: "Sattlement",
         data() {
@@ -82,19 +132,67 @@
                 postage: 0,//邮费
 
                 addressInfo: this.$store.state.chooseAddress,
+                pickShop: {
+                    shopName: '选择自提门店',
+                    address: '',
+
+                },
+                payType: '1',
+                pickType: this.$store.state.pickType,
+                showPicker: false,
+                columns: [],
+                groupId: '',
             }
         },
         mounted() {
             this.allPrice = this.cartInfo.all_price;
             this.providerList = this.cartInfo.product_list;
             this.checkPostage();
+            this.loadShop();
         },
         methods:{
+            //选择门店
+            chooseShop(e) {
+                console.log(e);
+                this.groupId = e.data;
+                this.showPicker = false;
+
+                let data = {
+                    shopName: e.text,
+                    address: e.address,
+                };
+                this.pickShop = data;
+            },
+            //加载门店列表
+            loadShop() {
+                this.$api('Order/group').then(data => {
+                    this.columns = [];
+                    let shop = data.group_list;
+                    for (let m in shop) {
+                        let params = {
+                            text: shop[m].store_name,
+                            data: shop[m].group_id,
+                            address: shop[m].pick_address,
+                        };
+                        this.columns.push(params);
+                    }
+
+                })
+            },
             //提交订单
             pushOrder() {
-                if (this.addressInfo.isChoose == false) {
-                    this.$notify('请选择收货地址');
-                    return;
+                if (this.pickType == '1') {
+                    if (this.addressInfo.isChoose == false) {
+                        this.$notify('请选择收货地址');
+                        return;
+                    }
+                }
+
+                if (this.pickType == '2') {
+                    if (this.groupId == '') {
+                        this.$notify('请选择自提门店');
+                        return;
+                    }
                 }
 
                 this.$dialog.confirm({
@@ -114,13 +212,32 @@
                     let params = {
                         user_address_id: this.addressInfo.address_id,
                         product_list: JSON.stringify(product),
+                        pick_type: this.pickType,
+                        group_id: this.groupId,
+                        pay_type: this.payType
                     };
                     this.$api('Order/create', params).then(data => {
                         let params = {
-                            no: data.no
+                            no: data.no,
+                            pay_type: this.payType
                         };
-                        this.$api('Pay/pay', params).then(res => {
-                            this.postData(res.response);
+                        axios({
+                            url: `http://xkq.vxyz.cn/api/Pay/pay`,
+                            method: 'post',
+                            data: params,
+                        }).then(res => {
+                            let data = res.data;
+                            if (data.status == 0) {
+                                this.$notify(data.msg);
+                            } else if (data.status == 1) {
+                                this.postData(data.data.response);
+                            } else if (data.status == 2) {
+                                this.$toast.success(data.msg);
+                                this.$router.push({name: "Success"});
+                            }
+
+                        }).catch(fail => {
+
                         });
                     });
                 }).catch(() => {
@@ -207,11 +324,11 @@
                     function (res) {
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                         if (res.err_msg == "get_brand_wcpay_request：ok") {
-                            this.$toast.success("支付成功");
-                            this.$router.push({name: "Success"});
+                            vm.$toast.success("支付成功");
+                            vm.$router.push({name: "Success"});
                         } else {
-                            this.$notify("支付失败,订单已创建");
-                            this.$router.push({name: "Success"});
+                            vm.$notify("支付失败,订单已创建");
+                            vm.$router.push({name: "UserCenter"});
                         }
                     }
                 );

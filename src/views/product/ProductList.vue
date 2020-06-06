@@ -11,9 +11,6 @@
             <van-row>
                 <van-col v-for="(item,index) in productList" :key="index" span="12">
                     <div @click="checkProduct(item.product_id)" class="product">
-                        <div style="position: absolute;left: 0;top: 10px;">
-                            <van-tag mark type="danger">{{item.product_type_text}}</van-tag>
-                        </div>
                         <div class="">
                             <img :src="item.img_url" class="image" alt="">
                         </div>

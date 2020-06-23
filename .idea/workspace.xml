@@ -4,29 +4,12 @@
     <list default="true" id="02df94a0-b998-40e2-a76a-8487d4c00b19" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/css/app.cbab70ec353b5cb2fc2e29a7419e41fc.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/css/app.cbab70ec353b5cb2fc2e29a7419e41fc.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/img/faith.213c32f.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/js/app.2e292d2cb91f4659ac01.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/js/app.2e292d2cb91f4659ac01.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/static/css/app.62ba35cc998b8d43cfb2326370257778.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/static/css/app.62ba35cc998b8d43cfb2326370257778.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/static/js/app.2140b1802ddd65d3ceae.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/static/js/app.2140b1802ddd65d3ceae.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/static/js/manifest.3ad1d5771e9b13dbdad2.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/static/js/manifest.3ad1d5771e9b13dbdad2.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/js/vendor.a27950a335509add8b5e.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/static/js/vendor.a27950a335509add8b5e.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/index/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/index/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/product/ProductDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/product/ProductDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/product/ProductList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/product/ProductList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/product/Settlement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/product/Settlement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/public/Author.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/public/Author.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/shopCart/Sattlement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/shopCart/Sattlement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/usercenter/UserCenter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/usercenter/UserCenter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/usercenter/order/OrderDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/usercenter/order/OrderDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/video/detail/Detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/video/detail/Detail.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,11 +64,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/product/ProductList.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="12" column="80" selection-start-line="12" selection-start-column="80" selection-end-line="12" selection-end-column="80" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/video/detail/Detail.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -142,6 +134,7 @@
         <option value="$PROJECT_DIR$/src/views/index/Index.vue" />
         <option value="$PROJECT_DIR$/src/views/product/ProductDetail.vue" />
         <option value="$PROJECT_DIR$/src/views/product/ProductList.vue" />
+        <option value="$PROJECT_DIR$/src/views/video/detail/Detail.vue" />
       </list>
     </option>
   </component>
@@ -171,6 +164,27 @@
               <item name="shop-vant" type="b2602c69:ProjectViewProjectNode" />
               <item name="shop-vant" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop-vant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop-vant" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop-vant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop-vant" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="video" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shop-vant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shop-vant" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="video" type="462c0819:PsiDirectoryNode" />
+              <item name="detail" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -245,11 +259,13 @@
       <workItem from="1590922549424" duration="187000" />
       <workItem from="1590992321842" duration="350000" />
       <workItem from="1591089885022" duration="4000" />
+      <workItem from="1591414021274" duration="70000" />
+      <workItem from="1591757250390" duration="5000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36459000" />
+    <option name="totallyTimeSpent" value="36534000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="81" y="23" width="1839" height="972" extended-state="0" />
@@ -447,6 +463,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/product/ProductList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="80" selection-start-line="12" selection-start-column="80" selection-end-line="12" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/index/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
@@ -457,10 +480,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/product/ProductList.vue">
+    <entry file="file://$PROJECT_DIR$/src/views/video/detail/Detail.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="80" selection-start-line="12" selection-start-column="80" selection-end-line="12" selection-end-column="80" />
+        <state relative-caret-position="544">
+          <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
         </state>
       </provider>
     </entry>

@@ -75,5 +75,7 @@
     .title {
         font-size: 20px;
     }
-
+    image{
+        width: 100% !important;
+    }
 </style>

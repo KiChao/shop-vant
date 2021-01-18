@@ -1,40 +1,55 @@
 <template>
     <div style="background-color: #FFFFFF">
-        <div style="padding: 15px 10px 0 10px;" class="text-right">
-            <van-icon style="margin-right: 10px" @click="openPage('SystemMessage')" size="25" name="envelop-o" :info="unread==0?'':unread"/>
-            <span> </span>
-            <van-icon @click="openPage('Setting')" size="25" name="setting-o"/>
+        <div class="big-window">
+            <div style="padding: 15px 10px 0 10px;" class="text-right">
+                <van-icon style="margin-right: 10px" @click="openPage('SystemMessage')" size="25" name="envelop-o"
+                    :info="unread==0?'':unread" />
+                <span> </span>
+                <van-icon @click="openPage('Setting')" size="25" name="setting-o" />
+            </div>
+            <!--会员资料卡片-->
+            <div>
+                <div style="position: relative;color: #2d3750;" class="flex default-window">
+                    <div class="head-window">
+                        <img :src="userData.headimgurl" class="head">
+                    </div>
+                    <div class="name-window">
+                        <div class="name">{{userData.nickname}}</div>
+                        <div>用户ID：{{userData.user_id}}</div>
+                        <div>注册时间：{{userData.time}}</div>
+                    </div>
+                    <div>
+                        <div class="level">{{userData.level_text}}</div>
+                    </div>
+                </div>
+                <div class="flex default-window text-center">
+                    <div @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index" style="flex: 1;">
+                        <div>{{item.num}}</div>
+                        <div>{{item.integral_type_name}}</div>
+                    </div>
+                </div>
+                <div class="" style="padding: 10px 30px 0 30px;">
+                    <div class="card-window">
+                        <div class="flex">
+                            <div>
+                                <img src="@/assets/temp/card-logo.png" class="card-logo">
+                            </div>
+                            <div class="text-center" style="flex: 1;">
+                                <span class="card-text">
+                                    开通经销商立享特权
+                                </span>
+                            </div>
+                            <div>
+                                <img src="@/assets/temp/card-btn.png" class="card-btn" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--会员资料卡片-->
-        <div class="vip-window" style="background-image: url(http://xkq.vxyz.cn/Uploads/1/uc_bg.jpg);background-size: cover;background-position: center center">
-            <div class="discount-tip">
-                <span>星卡其会员中心</span>
-            </div>
-            <div class="head-window table">
-                <div class="table-cell head-left">
-                    <img :src="userData.headimgurl" class="image head">
-                </div>
-                <div class="table-cell head-middle">
-                    <div><span class="nickname">{{userData.nickname}}</span></div>
-                    <div><span class="font-13">{{userData.invest}}</span></div>
-                </div>
-                <div class="table-cell head-right">
-                    <span class="level">{{userData.level_text}}</span>
-                </div>
-            </div>
-            <!--<div class="default-window text-center">
-                <van-row gutter="15">
-                    <van-col @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index" span="12">：<span
-                        style=""></span></van-col>
-                </van-row>
-            </div>-->
-            <div class="flex place">
-                <div style="flex: 1" class="text-center" @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index">
-                    <div>{{item.integral_type_name}}</div>
-                    <div style="color: goldenrod;text-shadow: 0px 0px 2px #8e1414;">{{item.num}}</div>
-                </div>
-            </div>
-        </div>
+
+
+
 
         <div>
             <div class="table" style="padding: 10px 20px 0 20px">
@@ -43,20 +58,20 @@
                 </div>
                 <div class="table-cell text-right font-gary">
                     <span @click="openPage('OrderList',{type:'all'})">全部</span>
-                    <van-icon name="arrow"/>
+                    <van-icon name="arrow" />
                 </div>
             </div>
             <van-grid icon-size="35" :border="false" :column-num="5">
-                <van-grid-item :info="orderNumber[0]==0?'':orderNumber[0]" :to="{name:'OrderList',params:{type:'0'}}" icon="pending-payment"
-                               text="未付款"/>
-                <van-grid-item :info="orderNumber[1]==0?'':orderNumber[1]" :to="{name:'OrderList',params:{type:'1'}}" icon="paid"
-                               text="待发货"/>
-                <van-grid-item :info="orderNumber[2]==0?'':orderNumber[2]" :to="{name:'OrderList',params:{type:'2'}}" icon="logistics"
-                               text="待收货"/>
-                <van-grid-item :info="orderNumber[3]==0?'':orderNumber[3]" :to="{name:'OrderList',params:{type:'3'}}" icon="certificate"
-                               text="已完成"/>
+                <van-grid-item :info="orderNumber[0]==0?'':orderNumber[0]" :to="{name:'OrderList',params:{type:'0'}}"
+                    icon="pending-payment" text="未付款" />
+                <van-grid-item :info="orderNumber[1]==0?'':orderNumber[1]" :to="{name:'OrderList',params:{type:'1'}}"
+                    icon="paid" text="待发货" />
+                <van-grid-item :info="orderNumber[2]==0?'':orderNumber[2]" :to="{name:'OrderList',params:{type:'2'}}"
+                    icon="logistics" text="待收货" />
+                <van-grid-item :info="orderNumber[3]==0?'':orderNumber[3]" :to="{name:'OrderList',params:{type:'3'}}"
+                    icon="certificate" text="已完成" />
                 <van-grid-item :info="orderNumber[4]+orderNumber[5]==0?'':orderNumber[4]+orderNumber[5]" :to="{name:'OrderList',params:{type:'other'}}"
-                               icon="orders-o" text="其他"/>
+                    icon="orders-o" text="其他" />
             </van-grid>
         </div>
 
@@ -65,12 +80,12 @@
                 <span style="font-size: 20px">我的应用</span>
             </div>
             <van-grid icon-size="30" :border="false" :column-num="4">
-                <van-grid-item to="/AddressList" icon="location-o" text="地址管理"/>
-                <van-grid-item to="/Poster" icon="photo-o" text="推广海报"/>
-                <van-grid-item to="/UserData" icon="manager-o" text="个人资料"/>
-                <van-grid-item to="/Wallet" icon="paid" text="我的钱包"/>
-                <van-grid-item to="/MyTeam" icon="cluster-o" text="我的团队"/>
-                <van-grid-item to="/Recharge" icon="cash-on-deliver" text="充值"/>
+                <van-grid-item to="/AddressList" icon="location-o" text="地址管理" />
+                <van-grid-item to="/Poster" icon="photo-o" text="推广海报" />
+                <van-grid-item to="/UserData" icon="manager-o" text="个人资料" />
+                <van-grid-item to="/Wallet" icon="paid" text="我的钱包" />
+                <van-grid-item to="/MyTeam" icon="cluster-o" text="我的团队" />
+                <van-grid-item to="/Recharge" icon="cash-on-deliver" text="充值" />
             </van-grid>
         </div>
 
@@ -99,11 +114,19 @@
         },
         methods: {
             //查看积分详情
-            checkIntegral(type){
-                this.$router.push({name:'IntegralRecord',params:{type:type}});
+            checkIntegral(type) {
+                this.$router.push({
+                    name: 'IntegralRecord',
+                    params: {
+                        type: type
+                    }
+                });
             },
             openPage(urlName, urlParams) {
-                this.$router.push({name: urlName, params: urlParams});
+                this.$router.push({
+                    name: urlName,
+                    params: urlParams
+                });
             },
             //加载个人资料
             loadUserCenter() {
@@ -124,53 +147,74 @@
         background-color: #FFFFFF;
     }
 
-    .vip-window {
-        margin: 10px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #222222;
-        /*box-shadow: 2px 2px 5px #333333;*/
-        color: #ffefcc;
+    .big-window {
+        background-image: linear-gradient(180deg, #66ccff 0%, #41b5f0 100%);
+        border-bottom-left-radius: 60% 15%;
+        border-bottom-right-radius: 60% 15%;
+        overflow: hidden;
     }
 
-    .discount-tip {
-        text-align: right;
-        font-size: 12px;
+    .card-window {
+        background-image: linear-gradient(to right, #2d3750, #46577e);
+        padding: 15px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .card-logo {
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin-left: -25px;
+    }
+
+    .card-btn {
+        width: 70px;
+        height: 25.7px;
+        display: block;
+    }
+
+    .card-text {
+        background: linear-gradient(#f9e0a1, #ddb677);
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
     }
 
     .head-window {
-        padding: 10px;
-    }
-
-    .head-left {
-        width: 60px;
+        height: 60px;
+        height: 60px;
     }
 
     .head {
-        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        display: block;
     }
 
-    .head-middle {
-        padding: 0 10px;
+    .name-window {
+        padding: 0 15px;
+        flex: 1;
+        font-size: 13px;
     }
 
-    .nickname {
+    .name {
         font-size: 17px;
     }
 
-    .head-right {
-        width: 100px;
-        text-align: right;
-    }
-
     .level {
-        font-size: 22px;
-        color: goldenrod;
-        text-shadow: 0px 0px 2px #8e1414;
+        padding: 5px 20px;
+        background-color: #2d3750;
+        color: #FFFFFF;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+        margin-right: -10px;
     }
-
-    .value-window {
-        color: #969799
-    }
-
 </style>

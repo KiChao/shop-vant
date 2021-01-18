@@ -148,7 +148,7 @@
     }
 
     .big-window {
-        background-image: linear-gradient(180deg, #66ccff 0%, #41b5f0 100%);
+        background-image: url(../../assets/temp/usercenter-bg.jpg);
         border-bottom-left-radius: 60% 15%;
         border-bottom-right-radius: 60% 15%;
         overflow: hidden;
@@ -158,13 +158,14 @@
         background-image: linear-gradient(to right, #2d3750, #46577e);
         padding: 15px;
         border-radius: 20px 20px 0 0;
+
     }
 
     .card-logo {
         width: 50px;
         height: 50px;
         display: block;
-        margin-left: -25px;
+        /* margin-left: -25px; */
     }
 
     .card-btn {
@@ -203,10 +204,12 @@
         padding: 0 15px;
         flex: 1;
         font-size: 13px;
+
     }
 
     .name {
         font-size: 17px;
+        font-weight: bold;
     }
 
     .level {

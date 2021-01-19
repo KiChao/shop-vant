@@ -9,6 +9,7 @@
             <div class="table">
                 <div class="table-cell">
                     <span class="font-red">￥</span><span class="font-red" style="font-size: 25px">{{productInfo.discount_price}}</span>
+                    <span style="margin-left: 10px;font-size: 14px;text-decoration: line-through;color: #888888;">市场价：￥{{productInfo.original_price}}</span>
                 </div>
                 <div class="table-cell text-right">
                     <span class="font-gary font-13">{{freight}}</span>

@@ -40,7 +40,7 @@
                                 </span>
                             </div>
                             <div>
-                                <img src="@/assets/temp/card-btn.png" class="card-btn" alt="">
+                                <router-link to="/Recharge"><img src="@/assets/temp/card-btn.png" class="card-btn" alt=""></router-link>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                 <van-grid-item to="/UserData" icon="manager-o" text="个人资料" />
                 <van-grid-item to="/Wallet" icon="paid" text="我的钱包" />
                 <van-grid-item to="/MyTeam" icon="cluster-o" text="我的团队" />
-                <van-grid-item to="/Recharge" icon="cash-on-deliver" text="充值" />
+                <!-- <van-grid-item to="/Recharge" icon="cash-on-deliver" text="充值" /> -->
             </van-grid>
         </div>
 

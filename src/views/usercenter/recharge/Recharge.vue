@@ -10,7 +10,7 @@
                     <img v-if="chooseItem==item.recharge_pro_id" src="@/assets/temp/xuanzhong.png" class="choose"
                          alt="">
                     <div><span class="font-red">￥</span><span class="price">{{item.price}}</span></div>
-                    <div><span>{{item.recharge_name}}</span></div>
+                    <!-- <div><span>{{item.recharge_name}}</span></div> -->
                 </div>
             </div>
         </div>
@@ -24,9 +24,11 @@
 
         <van-divider>充值说明</van-divider>
         <div class="default-window font-13">
-            <div><span>1.平台会不定期退出充值活动，除充值金额外，会赠予不同额度的积分。</span></div>
-            <div><span>2.充值金额可用于平台提供的相关服务。</span></div>
-            <div><span>3.充值后，账户余额使用不设有效期，不能提现、转移、转赠。</span></div>
+            <div><span>1.充值2000元升级为经销商AA，享受8折优惠。</span></div>
+            <div><span>2.充值3000元升级为经销商S，享受7.5折优惠。</span></div>
+            <div><span>3.充值5000元升级为经销商SHG，享受7折优惠。</span></div>
+            <div><span>4.充值10000元升级为经销商4A，享受6折优惠。</span></div>
+            <div><span>5.充值20000+升级为Commune Beans. 肯木咖啡门店CB+1，享受5.5折扣优惠。</span></div>
         </div>
 
     </div>

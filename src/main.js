@@ -55,11 +55,11 @@ Vue.prototype.$api = api;
 //asiox拦截器，拦截后添加token
 axios.interceptors.request.use(
     config => {
-        // const token = toolBox.getCookie('token');
-        config.headers.Token = '8c6e08bfb4d8bc4d240f2031f9244f13';
-        /* if (token) {
+        const token = toolBox.getCookie('token');
+        // config.headers.Token = '8c6e08bfb4d8bc4d240f2031f9244f13';
+        if (token) {
             config.headers.Token = token;
-        } */
+        }
         return config;
     },
     error => {
@@ -72,7 +72,7 @@ axios.interceptors.request.use(
 
 router.beforeEach((to, from, next) => {
 
-    /* if (!store.state.isLoginLing && to.name != 'Author') {
+    if (!store.state.isLoginLing && to.name != 'Author') {
         // 第一次进入项目
         let sn = toolBox.GetQueryString("sn");
         if (sn) {
@@ -82,7 +82,7 @@ router.beforeEach((to, from, next) => {
         toolBox.setCookie('beforeLoginUrl', to.path, 0.1); // 保存用户进入的url
         next('/Author');
         return false;
-    } */
+    }
     /*if (store.state.celebrity_lv == 0 && store.state.isLoginLing) {
         if (to.name == 'UserCenter' || to.name == 'AdoptGoods' || to.name == 'GoodsRelease' || to.name == 'ProductDetail' || to.name == 'ArticleDetail') {
             next('/RealNameAuthentication');

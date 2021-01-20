@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="default-window" style="background-color: #e2595a;color: #ececec">
+        <div class="default-window" style="background-color: #c9333e;color: #ececec">
             <div class="table">
                 <div class="table-cell user-left">
                     <img :src="userInfo.headimgurl" style="width: 45px;height: 45px;border-radius: 100%" alt="">
@@ -109,8 +109,8 @@
                 let item = {
                     //获取锚点之前的链接
                     links: `http://m.xkq.vxyz.cn/?sn=${sn}`,
-                    title: '星卡其',
-                    desc: 'WELCOME TO TAKINKI!',
+                    title: '肯木咖啡',
+                    desc: 'WELCOME TO COMMUNE BEANS!',
                     imgUrl: 'http://xkq.vxyz.cn/Uploads/1/2020-03-26/1B0D20D4D6CF02C8C6F9B8ED87F0C723.jpg',
                 };
                 this.$wxShare(item);

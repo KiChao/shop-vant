@@ -1,6 +1,6 @@
 <template>
     <div style="background-color: #FFFFFF">
-        <div class="big-window">
+        <div class="">
             <div style="padding: 15px 10px 0 10px;" class="text-right">
                 <van-icon style="margin-right: 10px" @click="openPage('SystemMessage')" size="25" name="envelop-o"
                     :info="unread==0?'':unread" />
@@ -15,7 +15,7 @@
                     </div>
                     <div class="name-window">
                         <div class="name">{{userData.nickname}}</div>
-                        <div>用户ID：{{userData.user_id}}</div>
+                        <div>用户ID：{{userData.user_id}} / 消费：￥{{userData.invest}}</div>
                         <div>注册时间：{{userData.time}}</div>
                     </div>
                     <div>
@@ -28,8 +28,8 @@
                         <div>{{item.integral_type_name}}</div>
                     </div>
                 </div>
-                <div class="" style="padding: 10px 30px 0 30px;">
-                    <div class="card-window">
+                <div class="default-window">
+                   <!-- <div class="card-window">
                         <div class="flex">
                             <div>
                                 <img src="@/assets/temp/card-logo.png" class="card-logo">
@@ -43,7 +43,8 @@
                                 <router-link to="/Recharge"><img src="@/assets/temp/card-btn.png" class="card-btn" alt=""></router-link>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    <router-link to="/Recharge"><img src="@/assets/temp/usercenter-card.png" class="image" /></router-link>
                 </div>
             </div>
         </div>
@@ -157,7 +158,8 @@
     .card-window {
         background-image: linear-gradient(to right, #2d3750, #46577e);
         padding: 15px;
-        border-radius: 20px 20px 0 0;
+        border-radius: 20px;
+        margin: 20px;
 
     }
 
@@ -203,7 +205,7 @@
     .name-window {
         padding: 0 15px;
         flex: 1;
-        font-size: 13px;
+        font-size: 12px;
 
     }
 
@@ -213,8 +215,8 @@
     }
 
     .level {
-        padding: 5px 20px;
-        background-color: #2d3750;
+        padding: 5px 10px;
+        background-color: #c9333e;
         color: #FFFFFF;
         border-top-left-radius: 40px;
         border-bottom-left-radius: 40px;

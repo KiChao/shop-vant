@@ -4,11 +4,9 @@
             <span class="font-gary font-13">请选择充值金额</span>
         </div>
         <div class="recharge-window">
-            <div v-for="(item,index) in rechargeList" :key="index" @click="chooseItem=item.recharge_pro_id"
-                 class="recharge-item">
+            <div v-for="(item,index) in rechargeList" :key="index" @click="chooseItem=item.recharge_pro_id" class="recharge-item">
                 <div class="recharge" :class="{'active':chooseItem==item.recharge_pro_id}">
-                    <img v-if="chooseItem==item.recharge_pro_id" src="@/assets/temp/xuanzhong.png" class="choose"
-                         alt="">
+                    <img v-if="chooseItem==item.recharge_pro_id" src="@/assets/temp/xuanzhong.png" class="choose" alt="">
                     <div><span class="font-red">￥</span><span class="price">{{item.price}}</span></div>
                     <!-- <div><span>{{item.recharge_name}}</span></div> -->
                 </div>
@@ -30,11 +28,29 @@
             <div><span>4.充值10000元升级为经销商4A，享受6折优惠。</span></div>
             <div><span>5.充值20000+升级为Commune Beans. 肯木咖啡门店CB+1，享受5.5折扣优惠。</span></div>
         </div>
+        <van-action-sheet v-model="show">
+            <div class=" default-window white flex place">
+                <div class="default-window"><span>支付方式</span></div>
+                <van-radio-group v-model="payType">
+                    <div class="default-window">
+                        <van-radio name="2" checked-color="#07c160">微信支付</van-radio>
+                    </div>
+                    <div class="default-window">
+                        <van-radio name="1" checked-color="#07c160">支付宝</van-radio>
+                    </div>
+
+                </van-radio-group>
+            </div>
+            <div class="default-window">
+                <van-button @click="pay" color="linear-gradient(to right, #ff6034, #ee0a24)" block round>确认支付</van-button>
+            </div>
+        </van-action-sheet>
 
     </div>
 </template>
 
 <script>
+    import axios from "axios";
     export default {
         name: "Recharge",
         data() {
@@ -42,6 +58,8 @@
                 chooseItem: '',
                 rechargeList: [],
                 btnStatus: false,
+                payType: '2',
+                show: false,
             }
         },
         mounted() {
@@ -61,6 +79,10 @@
                     this.$notify('请选择充值面额');
                     return;
                 }
+                this.show = true;
+
+            },
+            pay() {
                 this.$toast.loading('支付中');
                 this.btnStatus = true;
                 let params = {
@@ -68,17 +90,45 @@
                 };
                 this.$api('Recharge/create', params).then(data => {
                     let params2 = {
-                        no: data.no
+                        no: data.no,
+                        pay_type: this.payType
                     };
-                    this.$api('Pay/recharge_pay', params2).then(res => {
+                    /* this.$api('Pay/recharge_pay', params2).then(res => {
                         this.postData(res.response);
-                    })
+                    }) */
+                    axios({
+                        url: `http://www.communebeans.cn/api/Pay/recharge_pay`,
+                        method: 'post',
+                        data: params2,
+                    }).then(res => {
+                        let data = res.data;
+                        if (data.status == 0) {
+                            this.$notify(data.msg);
+                        } else if (data.status == 1) {
+                            if (this.payType == '1') {
+                                //跳转支付宝支付
+                                let url = data.data.url;
+                                window.location.href = url;
+                            } else {
+                                this.postData(data.data.response);
+                            }
+                        } else if (data.status == 2) {
+                            this.$toast.success(data.msg);
+                            this.$router.push({
+                                name: "Success"
+                            });
+                        }
+
+                    }).catch(fail => {
+
+                    });
                 })
+
             },
             /**
              * @method:ajax请求数据方法
              */
-            postData: function (params) {
+            postData: function(params) {
                 let vm = this;
 
                 let data = JSON.parse(params);
@@ -88,7 +138,7 @@
              * @method :微信支付方法
              * @param data
              */
-            weixinPay: function (data) {
+            weixinPay: function(data) {
                 let vm = this;
                 if (typeof WeixinJSBridge == "undefined") {
                     //微信浏览器内置对象。参考微信官方文档
@@ -116,11 +166,10 @@
              * @method 支付费用方法
              * @param data:后台返回的支付对象,(详情微信公众号支付API中H5提交支付);
              */
-            onBridgeReady: function (data) {
+            onBridgeReady: function(data) {
                 let vm = this;
                 WeixinJSBridge.invoke(
-                    "getBrandWCPayRequest",
-                    {
+                    "getBrandWCPayRequest", {
                         appId: data.appId, //公众号名称，由商户传入
                         timeStamp: data.timeStamp, //时间戳，自1970年以来的秒数
                         nonceStr: data.nonceStr, //随机串
@@ -128,14 +177,18 @@
                         signType: data.signType, //微信签名方式：
                         paySign: data.paySign //微信签名
                     },
-                    function (res) {
+                    function(res) {
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
                             vm.$toast.success("支付成功");
-                            vm.$router.push({name: "Success"});
+                            vm.$router.push({
+                                name: "Success"
+                            });
                         } else {
                             vm.$notify("支付失败,订单已创建");
-                            vm.$router.push({name: "UserCenter"});
+                            vm.$router.push({
+                                name: "UserCenter"
+                            });
                         }
                     }
                 );
@@ -147,7 +200,7 @@
 <style scoped>
     .price {
         color: #ee0a24;
-        font-size: 30px;
+        font-size: 26px;
         font-weight: bold;
     }
 

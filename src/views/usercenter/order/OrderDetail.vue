@@ -10,7 +10,7 @@
             <div class="info-window white-bg">
                 <div class="address-window  table">
                     <div class="table-cell address-left">
-                        <van-icon class="block" size="25" name="location-o"/>
+                        <van-icon class="block" size="25" name="location-o" />
                     </div>
                     <div class="table-cell">
                         <div><span>{{order.receiver_name}}</span><span style="padding-left: 10px">{{order.receiver_phone}}</span>
@@ -21,7 +21,7 @@
                 <div class="white-bg pay-window">
                     <div class="table">
                         <div class="table-cell address-left">
-                            <van-icon class="block" size="25" name="label-o"/>
+                            <van-icon class="block" size="25" name="label-o" />
                         </div>
                         <div class="table-cell">
                             <div><span>订单编号：{{order.order_no}}</span></div>
@@ -31,15 +31,15 @@
                 <div class="white-bg pay-window">
                     <div class="table">
                         <div class="table-cell address-left">
-                            <van-icon class="block" size="25" name="free-postage"/>
+                            <van-icon class="block" size="25" name="free-postage" />
                         </div>
                         <div class="table-cell">
                             <div><span>快递公司：{{order.express_id}}</span></div>
                             <div><span>快递运单：{{order.express_no||'暂未发货'}}</span></div>
                         </div>
-                        <div class="table-cell">
+                        <!-- <div class="table-cell">
                             <van-icon name="arrow"/>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="pay-window">
@@ -55,14 +55,8 @@
         </div>
         <div>
             <van-panel :title="order.provider_detail.provider_name" :desc="order.provider_detail.company_phone">
-                <van-card
-                    v-for="(item,index) in order.order_product"
-                    :key="index"
-                    :price="item.discount_price"
-                    :title="item.product_name"
-                    :thumb="item.img_url"
-                    :desc="'数量 *'+item.num"
-                >
+                <van-card v-for="(item,index) in order.order_product" :key="index" :price="item.discount_price" :title="item.product_name"
+                    :thumb="item.img_url" :desc="'数量 *'+item.num">
                     <div slot="tags">
                         <div v-for="(sku,skuIndex) in item.sku_info" :key="skuIndex">
                             <span>{{sku.sku_key}}：</span>
@@ -75,35 +69,48 @@
         </div>
         <div>
             <van-cell-group>
-                <van-cell center title="商品总价" :value="`￥`+order.total_fee"/>
-                <van-cell center title="运费" :value="order.shipping_fee==0?`包邮`:order.shipping_fee+'元'"/>
+                <van-cell center title="商品总价" :value="`￥`+order.total_fee" />
+                <van-cell center title="运费" :value="order.shipping_fee==0?`包邮`:order.shipping_fee+'元'" />
                 <van-panel title="订单总价" :status="`￥${parseFloat(order.total_fee)+parseFloat(order.shipping_fee)}`">
                 </van-panel>
             </van-cell-group>
         </div>
+
         <div class="default-window text-right">
-            <van-button  @click="closePay" v-if="order.status==0">取消订单</van-button>
+            <van-button @click="closePay" v-if="order.status==0">取消订单</van-button>
             <van-button type="danger" @click="confirmOrder" v-if="order.status==2">确认收货</van-button>
         </div>
         <div>
             <!--        清除浮动-->
             <div style="width: 100%;height: 50px"></div>
-            <van-submit-bar
-                v-if="order.status==0"
-                :price="(parseFloat(order.total_fee)+parseFloat(order.shipping_fee))*100"
-                button-text="订单支付"
-                text-align="left"
-                button-type="danger"
-                :loading="buyButtonStatus"
-                @submit="payOrder"
-            />
+            <van-submit-bar v-if="order.status==0" :price="(parseFloat(order.total_fee)+parseFloat(order.shipping_fee))*100"
+                button-text="订单支付" text-align="left" button-type="danger" :loading="buyButtonStatus" @submit="payOrder" />
         </div>
+        <van-action-sheet v-model="show">
+            <div class=" default-window white flex place">
+                <div class="default-window"><span>支付方式</span></div>
+                <van-radio-group v-model="payType">
+                    <div class="default-window">
+                        <van-radio name="2" checked-color="#07c160">微信支付</van-radio>
+                    </div>
+                    <div class="default-window">
+                        <van-radio name="1" checked-color="#07c160">支付宝</van-radio>
+                    </div>
+
+                    <div class="default-window">
+                        <van-radio name="3" checked-color="#07c160">充值卡</van-radio>
+                    </div>
+                </van-radio-group>
+            </div>
+            <div class="default-window">
+                <van-button @click="payTrue" color="linear-gradient(to right, #ff6034, #ee0a24)" block round>确认支付</van-button>
+            </div>
+        </van-action-sheet>
     </div>
 </template>
 
 <script>
-
-
+    import axios from "axios";
     export default {
         name: "OrderDetail",
         data() {
@@ -114,7 +121,10 @@
                         provider_name: '',
                         company_phone: '',
                     }
-                }
+                },
+                show: false,
+
+                payType: '2'
             }
         },
         mounted() {
@@ -122,7 +132,7 @@
         },
         methods: {
             //确认收货
-            confirmOrder(){
+            confirmOrder() {
                 this.$dialog.confirm({
                     message: '是否收货此商品？',
                     confirmButtonColor: '#ee0a24',
@@ -131,15 +141,15 @@
                         order_no: this.order.order_no
                     };
 
-                    this.$api('Order/confirm',params).then(data=>{
+                    this.$api('Order/confirm', params).then(data => {
                         this.$toast.success('操作成功');
                         this.loadOrderDetail();
                     });
-                }).catch(() => {
-                });
+                }).catch(() => {});
             },
+
             //取消订单
-            closePay(){
+            closePay() {
                 this.$dialog.confirm({
                     message: '是否取消该笔订单？',
                     confirmButtonColor: '#ee0a24',
@@ -147,12 +157,11 @@
                     let params = {
                         order_no: this.order.order_no
                     };
-                    this.$api('Order/cancel',params).then(data=>{
+                    this.$api('Order/cancel', params).then(data => {
                         this.$toast.success('取消成功');
                         this.loadOrderDetail();
                     });
-                }).catch(() => {
-                });
+                }).catch(() => {});
             },
             //加载订单详情
             loadOrderDetail() {
@@ -169,21 +178,48 @@
                     message: '确认支付该笔订单？',
                     confirmButtonColor: '#ee0a24',
                 }).then(() => {
-                    this.buyButtonStatus = true;
-                    let params = {
-                        no: this.order.order_no
-                    };
-                    this.$api('Pay/pay', params).then(res => {
-                        this.postData(res.response);
-                    });
-                }).catch(() => {
-                });
+                    this.show = true;
+
+                }).catch(() => {});
+            },
+            payTrue() {
+                this.buyButtonStatus = true;
+                 let params = {
+                     no: this.order.order_no,
+                     pay_type: this.payType
+                 };
+                 axios({
+                     url: `http://www.communebeans.cn/api/Pay/pay`,
+                     method: 'post',
+                     data: params,
+                 }).then(res => {
+                     let data = res.data;
+                     if (data.status == 0) {
+                         this.$notify(data.msg);
+                     } else if (data.status == 1) {
+                         if (this.payType == '1') {
+                             //跳转支付宝支付
+                             let url = data.data.url;
+                             window.location.href = url;
+                         } else {
+                             this.postData(data.data.response);
+                         }
+                     } else if (data.status == 2) {
+                         this.$toast.success(data.msg);
+                         this.$router.push({
+                             name: "Success"
+                         });
+                     }
+
+                 }).catch(fail => {
+
+                 });
             },
 
             /**
              * @method:ajax请求数据方法
              */
-            postData: function (params) {
+            postData: function(params) {
 
                 let vm = this;
 
@@ -194,7 +230,7 @@
              * @method :微信支付方法
              * @param data
              */
-            weixinPay: function (data) {
+            weixinPay: function(data) {
                 let vm = this;
                 if (typeof WeixinJSBridge == "undefined") {
                     //微信浏览器内置对象。参考微信官方文档
@@ -222,11 +258,10 @@
              * @method 支付费用方法
              * @param data:后台返回的支付对象,(详情微信公众号支付API中H5提交支付);
              */
-            onBridgeReady: function (data) {
+            onBridgeReady: function(data) {
                 let vm = this;
                 WeixinJSBridge.invoke(
-                    "getBrandWCPayRequest",
-                    {
+                    "getBrandWCPayRequest", {
                         appId: data.appId, //公众号名称，由商户传入
                         timeStamp: data.timeStamp, //时间戳，自1970年以来的秒数
                         nonceStr: data.nonceStr, //随机串
@@ -234,7 +269,7 @@
                         signType: data.signType, //微信签名方式：
                         paySign: data.paySign //微信签名
                     },
-                    function (res) {
+                    function(res) {
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                         if (res.err_msg == "get_brand_wcpay_request：ok") {
                             this.$toast.success("支付成功");

@@ -20,7 +20,7 @@
         <div v-if="pickType=='1'" @click="chooseAddress('choose')">
             <div class="address-window default-window table">
                 <div class="table-cell" style="width: 30px">
-                    <van-icon size="20px" class="block" name="location-o"/>
+                    <van-icon size="20px" class="block" name="location-o" />
                 </div>
                 <div v-if="addressInfo.isChoose==true" class="table-cell">
                     <div><span>{{addressInfo.name}} {{addressInfo.phone}}</span></div>
@@ -30,7 +30,7 @@
                     <div><span>点击选择收货地址</span></div>
                 </div>
                 <div class="table-cell" style="width: 30px;text-align: right">
-                    <van-icon size="20px" color="#888888" class="block" name="arrow"/>
+                    <van-icon size="20px" color="#888888" class="block" name="arrow" />
                 </div>
             </div>
             <img src="@/assets/temp/border.png" class="image" alt="">
@@ -38,7 +38,7 @@
         <div v-if="pickType=='2'">
             <div @click="showPicker=true" class="address-window default-window table">
                 <div class="table-cell" style="width: 30px">
-                    <van-icon size="20px" class="block" name="shop-o"/>
+                    <van-icon size="20px" class="block" name="shop-o" />
                 </div>
                 <div class="table-cell">
                     <div><span>{{pickShop.shopName}}</span></div>
@@ -46,7 +46,7 @@
 
                 </div>
                 <div class="table-cell" style="width: 30px;text-align: right">
-                    <van-icon size="20px" color="#888888" class="block" name="arrow"/>
+                    <van-icon size="20px" color="#888888" class="block" name="arrow" />
                 </div>
             </div>
             <img src="@/assets/temp/border.png" class="image" alt="">
@@ -54,13 +54,8 @@
         <div class="blank"></div>
         <!-- 商品信息-->
         <div v-for="(item,index) in providerList" :key="index">
-            <van-card
-                v-for="(product,tip) in item.product" :key="tip"
-                :num="product.num"
-                :price="product.discount_price"
-                :title="product.product_name"
-                :thumb="product.thumb_img_url"
-            >
+            <van-card v-for="(product,tip) in item.product" :key="tip" :num="product.num" :price="product.discount_price"
+                :title="product.product_name" :thumb="product.thumb_img_url">
                 <div slot="tags">
                     <div style="padding-top: 5px" v-for="(sku,skyIndex) in product.sku_info" :key="skyIndex">
                         {{sku.sku_key}}：
@@ -72,12 +67,11 @@
         <div class="blank"></div>
         <!-- 订单金额信息-->
         <van-cell-group>
-            <van-cell title="商品总价" :value="'￥'+allPrice"/>
+            <van-cell title="商品总价" :value="'￥'+allPrice" />
             <!--            <van-cell title="优惠金额" value="￥30"/>-->
-            <van-cell v-if="pickType=='1'" title="邮费" :value="postage==0?'包邮':postage+'元'"/>
+            <van-cell v-if="pickType=='1'" title="邮费" :value="postage==0?'包邮':postage+'元'" />
             <van-cell title="支付费用">
-                <span class="font-red">￥</span><span class="font-red"
-                                                     style="font-size: 20px">{{pickType=='1'?allPrice + postage:allPrice}}</span>
+                <span class="font-red">￥</span><span class="font-red" style="font-size: 20px">{{pickType=='1'?allPrice + postage:allPrice}}</span>
             </van-cell>
         </van-cell-group>
         <div class="blank"></div>
@@ -85,8 +79,12 @@
             <div class="default-window"><span>支付方式</span></div>
             <van-radio-group v-model="payType">
                 <div class="default-window">
-                    <van-radio name="1" checked-color="#07c160">现金支付</van-radio>
+                    <van-radio name="2" checked-color="#07c160">微信支付</van-radio>
                 </div>
+                <div class="default-window">
+                    <van-radio name="1" checked-color="#07c160">支付宝</van-radio>
+                </div>
+
                 <div class="default-window">
                     <van-radio name="3" checked-color="#07c160">充值卡</van-radio>
                 </div>
@@ -96,24 +94,13 @@
 
         <div>
             <div style="width: 100%;height: 50px"></div>
-            <van-submit-bar
-                :price="pickType=='1'?(allPrice + postage)*100:allPrice*100"
-                button-text="提交订单"
-                text-align="left"
-                :loading="buyButtonStatus"
-                @submit="pushOrder()"
-            />
+            <van-submit-bar :price="pickType=='1'?(allPrice + postage)*100:allPrice*100" button-text="提交订单" text-align="left"
+                :loading="buyButtonStatus" @submit="pushOrder()" />
         </div>
 
         <!--        门店选择-->
         <van-popup v-model="showPicker" position="bottom">
-            <van-picker
-                title="选择门店"
-                show-toolbar
-                :columns="columns"
-                @cancel="showPicker = false"
-                @confirm="chooseShop"
-            />
+            <van-picker title="选择门店" show-toolbar :columns="columns" @cancel="showPicker = false" @confirm="chooseShop" />
         </van-popup>
     </div>
 </template>
@@ -136,7 +123,7 @@
                 providerList: [],
                 allPrice: 0,
 
-                postage: 0,//邮费
+                postage: 0, //邮费
 
                 showPicker: false,
                 columns: [],
@@ -148,7 +135,7 @@
 
                 },
 
-                payType: '1'
+                payType: '2'
 
 
             }
@@ -236,7 +223,7 @@
                         };
 
                         axios({
-                            url: `http://xkq.vxyz.cn/api/Pay/pay`,
+                            url: `http://www.communebeans.cn/api/Pay/pay`,
                             method: 'post',
                             data: params,
                         }).then(res => {
@@ -244,10 +231,20 @@
                             if (data.status == 0) {
                                 this.$notify(data.msg);
                             } else if (data.status == 1) {
-                                this.postData(data.data.response);
+                                if (this.payType == '1') {
+                                    //跳转支付宝支付
+                                    let url = data.data.url;
+                                    window.location.href = url;
+                                } else {
+                                    this.postData(data.data.response);
+                                }
+
+
                             } else if (data.status == 2) {
                                 this.$toast.success(data.msg);
-                                this.$router.push({name: "Success"});
+                                this.$router.push({
+                                    name: "Success"
+                                });
                             }
 
                         }).catch(fail => {
@@ -257,8 +254,7 @@
                     /*this.$api('Pay/pay', params).then(res => {
                         this.postData(res.response);
                     });*/
-                }).catch(() => {
-                });
+                }).catch(() => {});
             },
             //计算运费
             checkPostage() {
@@ -290,14 +286,19 @@
 
             //选择地址
             chooseAddress(type) {
-                this.$router.push({name: 'AddressList', params: {type: type}});
+                this.$router.push({
+                    name: 'AddressList',
+                    params: {
+                        type: type
+                    }
+                });
             },
 
 
             /**
              * @method:ajax请求数据方法
              */
-            postData: function (params) {
+            postData: function(params) {
                 let vm = this;
 
                 let data = JSON.parse(params);
@@ -307,7 +308,7 @@
              * @method :微信支付方法
              * @param data
              */
-            weixinPay: function (data) {
+            weixinPay: function(data) {
                 let vm = this;
                 if (typeof WeixinJSBridge == "undefined") {
                     //微信浏览器内置对象。参考微信官方文档
@@ -335,11 +336,10 @@
              * @method 支付费用方法
              * @param data:后台返回的支付对象,(详情微信公众号支付API中H5提交支付);
              */
-            onBridgeReady: function (data) {
+            onBridgeReady: function(data) {
                 let vm = this;
                 WeixinJSBridge.invoke(
-                    "getBrandWCPayRequest",
-                    {
+                    "getBrandWCPayRequest", {
                         appId: data.appId, //公众号名称，由商户传入
                         timeStamp: data.timeStamp, //时间戳，自1970年以来的秒数
                         nonceStr: data.nonceStr, //随机串
@@ -347,14 +347,18 @@
                         signType: data.signType, //微信签名方式：
                         paySign: data.paySign //微信签名
                     },
-                    function (res) {
+                    function(res) {
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
                             vm.$toast.success("支付成功");
-                            vm.$router.push({name: "Success"});
+                            vm.$router.push({
+                                name: "Success"
+                            });
                         } else {
                             vm.$notify("支付失败,订单已创建");
-                            vm.$router.push({name: "UserCenter"});
+                            vm.$router.push({
+                                name: "UserCenter"
+                            });
                         }
                     }
                 );
@@ -364,7 +368,5 @@
 </script>
 
 <style scoped>
-    .address-window {
-
-    }
+    .address-window {}
 </style>

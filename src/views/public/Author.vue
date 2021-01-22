@@ -38,7 +38,7 @@
                     if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                         console.log('浏览器验证成功');
                         // 跳转到微信授权页面
-                        let url = 'http://m.xkq.vxyz.cn/#/Author';
+                        let url = 'http://m.communebeans.cn/#/Author';
                         window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfac95bd0c7bfa56f&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
                         // window.open('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2368efa263120b88&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
 
@@ -50,7 +50,7 @@
                         sn: this.$toolBox.getCookie('sn'),
                     };
                     axios({
-                        url: `http://xkq.vxyz.cn/api/UserCenter/index`,
+                        url: `http://www.communebeans.cn/api/UserCenter/index`,
                         method: 'post',
                         data: params,
                         headers: {
@@ -71,7 +71,7 @@
                             if (ua.match(/MicroMessenger/i) == 'micromessenger') {
                                 console.log('浏览器验证成功');
                                 // 跳转到微信授权页面
-                                let url = 'http://m.xkq.vxyz.cn/#/Author';
+                                let url = 'http://m.communebeans.cn/#/Author';
                                 window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxfac95bd0c7bfa56f&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
                                 // window.open('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2368efa263120b88&redirect_uri=' + encodeURIComponent(url) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
 

@@ -27,7 +27,7 @@ const api = async (location, params = null) => {
     return await new Promise((resolve, reject) => {
 
         axios({
-            url: `http://xkq.vxyz.cn/api/${location}`,
+            url: `http://www.communebeans.cn/api/${location}`,
             method: 'post',
             data: params,
             headers: {
@@ -96,7 +96,7 @@ import wx from 'weixin-js-sdk'
 //配置微信分享
 const wxShare = (item) => {
     let params = {
-        url: 'http://m.xkq.vxyz.cn/',
+        url: 'http://m.communebeans.cn/',
     };
     api('Base/get_jsjdk_config', params).then(data => {
         wxInit(data.js_jdk_config, item);

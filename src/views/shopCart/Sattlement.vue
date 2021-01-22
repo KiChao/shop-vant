@@ -83,7 +83,10 @@
             <div class="default-window"><span>支付方式</span></div>
             <van-radio-group v-model="payType">
                 <div class="default-window">
-                    <van-radio name="1" checked-color="#07c160">现金支付</van-radio>
+                    <van-radio name="2" checked-color="#07c160">微信支付</van-radio>
+                </div>
+                <div class="default-window">
+                    <van-radio name="1" checked-color="#07c160">支付宝支付</van-radio>
                 </div>
                 <div class="default-window">
                     <van-radio name="3" checked-color="#07c160">充值卡</van-radio>
@@ -137,7 +140,7 @@
                     address: '',
 
                 },
-                payType: '1',
+                payType: '2',
                 pickType: this.$store.state.pickType,
                 showPicker: false,
                 columns: [],
@@ -222,7 +225,7 @@
                             pay_type: this.payType
                         };
                         axios({
-                            url: `http://xkq.vxyz.cn/api/Pay/pay`,
+                            url: `http://www.communebeans.cn/api/Pay/pay`,
                             method: 'post',
                             data: params,
                         }).then(res => {
@@ -230,7 +233,13 @@
                             if (data.status == 0) {
                                 this.$notify(data.msg);
                             } else if (data.status == 1) {
-                                this.postData(data.data.response);
+                                if (this.payType == '1') {
+                                    //跳转支付宝支付
+                                    let url = data.data.url;
+                                    window.location.href = url;
+                                } else {
+                                    this.postData(data.data.response);
+                                }
                             } else if (data.status == 2) {
                                 this.$toast.success(data.msg);
                                 this.$router.push({name: "Success"});

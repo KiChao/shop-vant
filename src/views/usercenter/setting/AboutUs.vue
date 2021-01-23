@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="padding: 50px;text-align: center;">
-            <img src="http://xkq.vxyz.cn/Uploads/1/2020-03-26/1B0D20D4D6CF02C8C6F9B8ED87F0C723.jpg" style="width: 100px;" alt="">
+            <img src="http://xkq.vxyz.cn/Uploads/1/2020-03-26/1B0D20D4D6CF02C8C6F9B8ED87F0C723.jpg" style="width: 300px;" alt="">
             <div><span class="font-gary">肯木咖啡</span></div>
         </div>
         <div>

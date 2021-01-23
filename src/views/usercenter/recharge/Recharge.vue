@@ -8,7 +8,7 @@
                 <div class="recharge" :class="{'active':chooseItem==item.recharge_pro_id}">
                     <img v-if="chooseItem==item.recharge_pro_id" src="@/assets/temp/xuanzhong.png" class="choose" alt="">
                     <div><span class="font-red">￥</span><span class="price">{{item.price}}</span></div>
-                    <!-- <div><span>{{item.recharge_name}}</span></div> -->
+                    <div><span>{{item.recharge_name}}</span></div>
                 </div>
             </div>
         </div>
@@ -20,14 +20,14 @@
             <router-link :to="{name:'RechargeLog'}"><span>查看充值记录</span></router-link>
         </div>
 
-        <van-divider>充值说明</van-divider>
+<!--        <van-divider>充值说明</van-divider>
         <div class="default-window font-13">
             <div><span>1.充值2000元升级为经销商AA，享受8折优惠。</span></div>
             <div><span>2.充值3000元升级为经销商S，享受7.5折优惠。</span></div>
             <div><span>3.充值5000元升级为经销商SHG，享受7折优惠。</span></div>
             <div><span>4.充值10000元升级为经销商4A，享受6折优惠。</span></div>
             <div><span>5.充值20000+升级为Commune Beans. 肯木咖啡门店CB+1，享受5.5折扣优惠。</span></div>
-        </div>
+        </div> -->
         <van-action-sheet v-model="show">
             <div class=" default-window white flex place">
                 <div class="default-window"><span>支付方式</span></div>

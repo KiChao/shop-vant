@@ -18,11 +18,11 @@
                                 <van-radio checked-color="#ee0a24" name="1"/>
                             </template>
                         </van-cell>
-                        <van-cell icon="wechat" title="微信" clickable @click="payWay = '2'">
+                        <!-- <van-cell icon="wechat" title="微信" clickable @click="payWay = '2'">
                             <template #right-icon>
                                 <van-radio checked-color="#ee0a24" name="2"/>
                             </template>
-                        </van-cell>
+                        </van-cell> -->
                         <van-cell :label="bank_account==''?'请前往个人中心填写银行卡信息':bank_name+' '+bank_user+' '+bank_account"
                                   icon="card" title="银行卡" clickable @click="payWay = '3'">
                             <template #right-icon>

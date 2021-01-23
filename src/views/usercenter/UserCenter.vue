@@ -15,7 +15,7 @@
                     </div>
                     <div class="name-window">
                         <div class="name">{{userData.nickname}}</div>
-                        <div>用户ID：{{userData.user_id}} / 消费：￥{{userData.invest}}</div>
+                        <div>用户ID：{{userData.user_id}}</div>
                         <div>注册时间：{{userData.time}}</div>
                     </div>
                     <div>
@@ -24,12 +24,21 @@
                 </div>
                 <div class="flex default-window text-center">
                     <div @click="checkIntegral(item.integral_type)" v-for="(item,index) in wallet" :key="index" style="flex: 1;">
-                        <div>{{item.num}}</div>
-                        <div>{{item.integral_type_name}}</div>
+                        <div>
+                            <span style="padding-left: 25px;">{{item.num}}</span>
+                        </div>
+                        <div style="display: flex;justify-content: space-around;">
+                            <div style="display: flex;">
+                                <img v-if="item.integral_type==1" style="width: 20px;height: 20px;" src="@/assets/temp/duihuanjifen.png">
+                                <img v-if="item.integral_type==3" style="width: 20px;height: 20px;" src="@/assets/temp/kenmujifen.png">
+                                <span style="margin-left: 5px;">{{item.integral_type_name}}</span>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="default-window">
-                   <!-- <div class="card-window">
+                    <!-- <div class="card-window">
                         <div class="flex">
                             <div>
                                 <img src="@/assets/temp/card-logo.png" class="card-logo">

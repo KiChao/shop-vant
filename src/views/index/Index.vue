@@ -53,7 +53,7 @@
         </div>
 
         <!--        推荐商品栏目-->
-        <div>
+        <!-- <div>
             <van-card
                 v-for="(item,index) in productList"
                 :key="index"
@@ -67,7 +67,7 @@
 
                 </div>
             </van-card>
-        </div>
+        </div> -->
         <!-- 页脚 -->
         <shop-tab :choose-item="0"></shop-tab>
     </div>

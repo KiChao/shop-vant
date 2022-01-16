@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="default-window" style="background-color: #c9333e;color: #ececec">
+        <div class="default-window">
             <div class="table">
                 <div class="table-cell user-left">
                     <img :src="userInfo.headimgurl" style="width: 45px;height: 45px;border-radius: 100%" alt="">
@@ -27,7 +27,7 @@
                               name="envelop-o"/>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="top-user-window">
             <div>
                 <van-notice-bar style="height: 30px;border-radius: 5px" :text="indexNotice" mode="link"
@@ -68,6 +68,23 @@
                 </div>
             </van-card>
         </div> -->
+        <div class="product-window">
+            <van-row>
+                <van-col v-for="(item,index) in productList" :key="index" span="12">
+                    <div @click="openProduct(item.product_id)" class="product">
+                        <div class="">
+                            <img :src="item.img_url" class="image" alt="">
+                        </div>
+                        <div style="padding: 5px;">
+                            <div class="van-ellipsis"><span>{{item.product_name}}</span></div>
+                            <div class="van-ellipsis font-12 font-gary"><span>{{item.label_text}}</span></div>
+                            <div><span class="price">￥{{item.discount_price}}</span></div>
+                        </div>
+                    </div>
+                </van-col>
+            </van-row>
+            <no-data :show="productList.length" />
+        </div>
         <!-- 页脚 -->
         <shop-tab :choose-item="0"></shop-tab>
     </div>
@@ -183,6 +200,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
+        
     }
 
     .swipe-item-img {
@@ -226,5 +244,25 @@
 
     .user-right {
         width: 70px;
+    }
+
+    .product-window {
+        padding: 5px;
+    }
+
+    .product {
+        padding: 5px;
+        position: relative;
+    }
+
+
+    .text-window {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .price {
+        color: #ee0a24;
     }
 </style>
